@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dự án HTX Du lịch 3 Tại Chỗ - Làng Quỳnh Sơn | Trường PTDTNT THCS & THPT Bắc Sơn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Be Vietnam Pro"', 'sans-serif'],
+                    },
+                    colors: {
+                        forest: {
+                            DEFAULT: '#1b4332',
+                            light: '#2d6a4f',
+                            medium: '#40916c',
+                            soft: '#eef7f2',
+                        },
+                        rice: {
+                            DEFAULT: '#e09f3e',
+                            light: '#fef3c7',
+                            dark: '#b45309',
+                        },
+                        wood: {
+                            DEFAULT: '#d4a373',
+                            light: '#faedcd',
+                            dark: '#9c6644',
+                        },
+                        cream: '#fefae0',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Họa tiết thổ cẩm & ngói âm dương cách điệu */
+        .tay-pattern {
+            background-image: radial-gradient(#d4a373 1px, transparent 1px), radial-gradient(#e09f3e 1px, #fefae0 1px);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(27, 67, 50, 0.96) 0%, rgba(45, 106, 79, 0.92) 60%, rgba(156, 102, 68, 0.88) 100%);
+        }
+        .tab-active {
+            background-color: #1b4332;
+            color: #ffffff;
+            border-color: #1b4332;
+            box-shadow: 0 10px 15px -3px rgba(27, 67, 50, 0.25);
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-gray-800 font-sans antialiased selection:bg-rice selection:text-forest">
+
+    <!-- Thanh điều hướng (Navbar) -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-forest/95 backdrop-blur-md border-b border-white/10 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-rice flex items-center justify-center text-forest font-extrabold text-lg shadow-md group-hover:scale-105 transition-transform">
+                        QS
+                    </div>
+                    <div>
+                        <span class="block text-white font-bold text-sm sm:text-base tracking-tight leading-none">HTX DU LỊCH 3 TẠI CHỖ</span>
+                        <span class="block text-wood text-xs font-medium mt-1">Làng Quỳnh Sơn • Bắc Sơn</span>
+                    </div>
+                </a>
+
+                <!-- Menu Desktop -->
+                <nav class="hidden md:flex items-center gap-7">
+                    <a href="#tong-quan" class="text-white/90 hover:text-rice text-sm font-medium transition-colors">Tổng quan</a>
+                    <a href="#mo-hinh" class="text-white/90 hover:text-rice text-sm font-medium transition-colors">Mô hình 3 Tại Chỗ</a>
+                    <a href="#thu-vien-anh" class="text-white/90 hover:text-rice text-sm font-medium transition-colors">Thư viện ảnh</a>
+                    <a href="#trai-nghiem" class="text-white/90 hover:text-rice text-sm font-medium transition-colors">Lộ trình mẫu</a>
+                    <a href="#gia-tri" class="text-white/90 hover:text-rice text-sm font-medium transition-colors">Giá trị thực tiễn</a>
+                    <a href="#nhom-du-an" class="px-4 py-2 rounded-xl bg-rice hover:bg-amber-400 text-forest font-bold text-sm transition-all shadow-md">
+                        Đội ngũ thực hiện
+                    </a>
+                </nav>
+
+                <!-- Nút mở menu Mobile -->
+                <button id="mobile-menu-btn" aria-label="Mở menu" class="md:hidden p-2.5 rounded-xl text-white hover:bg-white/10 transition-colors">
+                    <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                    <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile thả xuống -->
+        <div id="mobile-menu" class="hidden md:hidden bg-forest border-t border-white/10 px-4 pt-3 pb-5 space-y-2 shadow-2xl">
+            <a href="#tong-quan" class="mobile-link block px-4 py-3 rounded-xl text-white/90 hover:bg-white/10 hover:text-rice font-medium">1. Tổng quan & Bối cảnh</a>
+            <a href="#mo-hinh" class="mobile-link block px-4 py-3 rounded-xl text-white/90 hover:bg-white/10 hover:text-rice font-medium">2. Cấu trúc HTX 3 Tại Chỗ</a>
+            <a href="#thu-vien-anh" class="mobile-link block px-4 py-3 rounded-xl text-white/90 hover:bg-white/10 hover:text-rice font-medium">Thư viện ảnh Quỳnh Sơn</a>
+            <a href="#trai-nghiem" class="mobile-link block px-4 py-3 rounded-xl text-white/90 hover:bg-white/10 hover:text-rice font-medium">3. Gói trải nghiệm mẫu</a>
+            <a href="#gia-tri" class="mobile-link block px-4 py-3 rounded-xl text-white/90 hover:bg-white/10 hover:text-rice font-medium">4. Giá trị thực tiễn</a>
+            <a href="#nhom-du-an" class="mobile-link block px-4 py-3 rounded-xl bg-rice text-forest font-bold text-center mt-2">5. Đội ngũ thực hiện dự án</a>
+        </div>
+    </header>
+
+    <!-- 1. Hero Section -->
+    <section class="hero-bg relative pt-28 pb-20 md:pt-36 md:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden text-white">
+        <!-- Vòng tròn trang trí nền -->
+        <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-rice/15 blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-wood/20 blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <!-- Badge tên trường -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 border border-white/25 backdrop-blur-sm text-xs sm:text-sm font-bold tracking-wider uppercase text-rice-light mb-6 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-rice animate-pulse"></span>
+                Trường PTDTNT THCS &amp; THPT Bắc Sơn
+            </div>
+
+            <!-- Tiêu đề chính -->
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight mb-6">
+                Dự án Xây dựng Mô hình <br class="hidden sm:inline">
+                <span class="text-rice">Hợp tác xã Du lịch 3 Tại Chỗ</span> <br>
+                <span class="text-2xl sm:text-3xl md:text-4xl font-bold text-white/95">tại Làng Du lịch Cộng đồng Quỳnh Sơn</span>
+            </h1>
+
+            <!-- Mô tả ngắn gọn -->
+            <p class="max-w-3xl mx-auto text-base sm:text-lg md:text-xl text-white/90 leading-relaxed mb-10 font-light">
+                Giải pháp liên kết chuỗi giá trị khép kín ngay tại bản làng: phát huy nội lực người dân Tày, tiêu thụ nông sản đặc trưng và bảo tồn di sản văn hóa bền vững tại xã Bắc Sơn, tỉnh Lạng Sơn.
+            </p>
+
+            <!-- Nút điều hướng -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#mo-hinh" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-rice hover:bg-amber-400 text-forest font-bold text-base shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2">
+                    <span>Khám phá mô hình 3 Tại Chỗ</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </a>
+                <a href="#trai-nghiem" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold text-base backdrop-blur-sm transition-all flex items-center justify-center gap-2">
+                    <span>Xem lộ trình vận hành mẫu</span>
+                </a>
+            </div>
+
+            <!-- Điểm nhấn nhanh -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-14 pt-10 border-t border-white/15 text-left sm:text-center">
+                <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                    <div class="text-rice font-extrabold text-xl sm:text-2xl">UN Tourism</div>
+                    <div class="text-xs sm:text-sm text-white/80 mt-1">Làng du lịch tốt nhất thế giới</div>
+                </div>
+                <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                    <div class="text-rice font-extrabold text-xl sm:text-2xl">UNESCO</div>
+                    <div class="text-xs sm:text-sm text-white/80 mt-1">Công viên địa chất toàn cầu Lạng Sơn</div>
+                </div>
+                <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                    <div class="text-rice font-extrabold text-xl sm:text-2xl">100% Hướng Nam</div>
+                    <div class="text-xs sm:text-sm text-white/80 mt-1">Kiến trúc nhà sàn ngói âm dương</div>
+                </div>
+                <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                    <div class="text-rice font-extrabold text-xl sm:text-2xl">3 Tại Chỗ</div>
+                    <div class="text-xs sm:text-sm text-white/80 mt-1">Ăn tại chỗ • Ở tại chỗ • Vui chơi tại chỗ</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Tổng quan & Bối cảnh -->
+    <section id="tong-quan" class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+            <span class="text-forest-medium font-bold uppercase tracking-widest text-xs sm:text-sm">01 • Bối cảnh & Tính cấp thiết</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-forest mt-2 mb-4">
+                Tiềm năng Quỳnh Sơn &amp; Bài toán Liên kết Cộng đồng
+            </h2>
+            <p class="text-gray-600 text-base sm:text-lg">
+                Nằm giữa lòng thung lũng Bắc Sơn hùng vĩ, Quỳnh Sơn hội tụ đầy đủ tài nguyên thiên nhiên và văn hóa độc đáo, nhưng cần một cơ chế điều phối thống nhất để phát triển bền vững.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+            <!-- Thẻ 1: Tiềm năng bản địa -->
+            <div class="bg-white rounded-3xl p-7 sm:p-9 shadow-lg border border-stone-200/80 border-t-4 border-t-forest flex flex-col justify-between">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-forest-soft text-forest font-bold text-sm mb-5">
+                        <span>🏔️</span> Thế mạnh tài nguyên &amp; di sản
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-forest mb-4">Bản sắc văn hóa Tày nguyên bản giữa lòng di sản</h3>
+                    <ul class="space-y-4 text-gray-600">
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-forest-soft text-forest font-bold flex items-center justify-center shrink-0 mt-0.5 text-sm">✓</span>
+                            <span><strong class="text-gray-800">Kiến trúc độc đáo:</strong> Hàng trăm ngôi nhà sàn gỗ truyền thống lợp ngói âm dương của đồng bào dân tộc Tày đều quay về hướng Nam, tựa lưng vào núi đá vôi, hướng mặt ra cánh đồng lúa.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-forest-soft text-forest font-bold flex items-center justify-center shrink-0 mt-0.5 text-sm">✓</span>
+                            <span><strong class="text-gray-800">Vị thế quốc tế:</strong> Được Tổ chức Du lịch Liên Hợp Quốc (UN Tourism) vinh danh "Làng du lịch tốt nhất thế giới" và nằm trong vùng Công viên địa chất toàn cầu UNESCO Lạng Sơn.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-forest-soft text-forest font-bold flex items-center justify-center shrink-0 mt-0.5 text-sm">✓</span>
+                            <span><strong class="text-gray-800">Danh thắng &amp; Nghệ thuật:</strong> Đỉnh Nà Lay ngắm toàn cảnh thung lũng mây, làn điệu hát Then, đàn Tính, lễ hội Lồng Tồng cùng ẩm thực đặc sản trứ danh.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mt-7 pt-5 border-t border-stone-100 flex flex-wrap gap-2">
+                    <span class="px-3 py-1 rounded-full bg-wood-light text-wood-dark text-xs font-semibold">#NhàSànHướngNam</span>
+                    <span class="px-3 py-1 rounded-full bg-wood-light text-wood-dark text-xs font-semibold">#ĐỉnhNàLay</span>
+                    <span class="px-3 py-1 rounded-full bg-wood-light text-wood-dark text-xs font-semibold">#HátThenĐànTính</span>
+                </div>
+            </div>
+
+            <!-- Thẻ 2: Bài toán đặt ra -->
+            <div class="bg-white rounded-3xl p-7 sm:p-9 shadow-lg border border-stone-200/80 border-t-4 border-t-rice flex flex-col justify-between">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-rice-light text-rice-dark font-bold text-sm mb-5">
+                        <span>🧩</span> Thách thức &amp; Nhu cầu cấp thiết
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-forest mb-4">Khắc phục tình trạng phát triển manh mún, tự phát</h3>
+                    <ul class="space-y-4 text-gray-600">
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-rice-light text-rice-dark font-bold flex items-center justify-center shrink-0 mt-0.5 text-sm">!</span>
+                            <span><strong class="text-gray-800">Liên kết hộ dân chưa chặt chẽ:</strong> Nhiều hộ làm homestay đơn lẻ, dễ dẫn đến cạnh tranh thiếu đồng bộ, nơi quá tải khách cuối tuần trong khi hộ khác vắng khách.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-rice-light text-rice-dark font-bold flex items-center justify-center shrink-0 mt-0.5 text-sm">!</span>
+                            <span><strong class="text-gray-800">Chưa khép kín chuỗi tiêu thụ tại chỗ:</strong> Cần kết nối trực tiếp hộ làm du lịch với hộ trồng trọt, chăn nuôi và làm nghề thủ công ngay trong xã Bắc Sơn để gia tăng giá trị nội địa.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 rounded-full bg-rice-light text-rice-dark font-bold flex items-center justify-center shrink-0 mt-0.5 text-sm">!</span>
+                            <span><strong class="text-gray-800">Chuẩn hóa nhưng giữ bản sắc:</strong> Nâng cao chất lượng phục vụ, vệ sinh an toàn thực phẩm và truyền thông số mà không làm mất đi nét mộc mạc chân tình của bản làng.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mt-7 pt-5 border-t border-stone-100 bg-cream/70 rounded-2xl p-4">
+                    <p class="text-sm text-forest font-medium">
+                        <strong>Giải pháp đề xuất:</strong> Thành lập <em>Hợp tác xã Du lịch 3 Tại Chỗ</em> làm "nhạc trưởng" điều phối khách, chuẩn hóa dịch vụ và khép kín chuỗi cung ứng bản địa.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- THƯ VIỆN ẢNH THỰC TẾ QUỲNH SƠN -->
+    <section id="thu-vien-anh" class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-stone-200">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-forest-medium font-bold uppercase tracking-widest text-xs sm:text-sm">Hình ảnh thực tế • Tư liệu tham khảo</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-forest mt-2 mb-4">Khám phá Quỳnh Sơn qua hình ảnh</h2>
+                <p class="text-gray-600 text-base sm:text-lg">
+                    Một số hình ảnh về cảnh quan thung lũng Bắc Sơn, kiến trúc nhà sàn và nét văn hóa Tày,
+                    giúp du khách hình dung rõ hơn về trải nghiệm du lịch cộng đồng tại Quỳnh Sơn.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <figure class="group overflow-hidden rounded-3xl bg-stone-50 border border-stone-200 shadow-md">
+                    <a href="https://baolangson.vn/kham-pha-ngoi-lang-co-tai-thung-lung-may-5060750.html" target="_blank" rel="noopener noreferrer" class="block">
+                        <img src="https://mediabls.mediatech.vn/upload/image/202510/thumbnail/594390_z7072680850969_4eb62e3904f2c97bcd6f61c3b8fd5221_13470303.jpg"
+                             alt="Toàn cảnh làng du lịch cộng đồng Quỳnh Sơn giữa thung lũng Bắc Sơn"
+                             loading="lazy" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105">
+                    </a>
+                    <figcaption class="p-5">
+                        <h3 class="font-bold text-forest text-lg">Toàn cảnh làng Quỳnh Sơn</h3>
+                        <p class="text-sm text-gray-600 mt-1">Những mái nhà nằm giữa thung lũng và núi đá vôi Bắc Sơn.</p>
+                        <a class="inline-block mt-3 text-sm font-semibold text-forest-medium hover:underline" href="https://baolangson.vn/kham-pha-ngoi-lang-co-tai-thung-lung-may-5060750.html" target="_blank" rel="noopener noreferrer">Nguồn: Báo Lạng Sơn ↗</a>
+                    </figcaption>
+                </figure>
+
+                <figure class="group overflow-hidden rounded-3xl bg-stone-50 border border-stone-200 shadow-md">
+                    <a href="https://thanhtra.com.vn/le-hoi-CC6498A33/yen-binh-quynh-son-ngoi-lang-du-lich-tot-nhat-the-gioi-fd5a0dbb7.html" target="_blank" rel="noopener noreferrer" class="block">
+                        <img src="https://media.thanhtra.com.vn/public/uploads/2026/01/14/69674e7d08dcb36fd5a0dbb8.jpg?w=1600"
+                             alt="Nhà sàn truyền thống ở làng Quỳnh Sơn bên cánh đồng lúa"
+                             loading="lazy" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105">
+                    </a>
+                    <figcaption class="p-5">
+                        <h3 class="font-bold text-forest text-lg">Nhà sàn truyền thống</h3>
+                        <p class="text-sm text-gray-600 mt-1">Không gian nhà sàn đặc trưng của cộng đồng người Tày.</p>
+                        <a class="inline-block mt-3 text-sm font-semibold text-forest-medium hover:underline" href="https://thanhtra.com.vn/le-hoi-CC6498A33/yen-binh-quynh-son-ngoi-lang-du-lich-tot-nhat-the-gioi-fd5a0dbb7.html" target="_blank" rel="noopener noreferrer">Nguồn: Báo Thanh tra ↗</a>
+                    </figcaption>
+                </figure>
+
+                <figure class="group overflow-hidden rounded-3xl bg-stone-50 border border-stone-200 shadow-md">
+                    <a href="https://cungphuot.info/thung-lung-bac-son-an-hien-trong-may-vao-mua-lua-chin-post26540.cp" target="_blank" rel="noopener noreferrer" class="block">
+                        <img src="https://media.cungphuot.info/2019/08/26540/1.jpg"
+                             alt="Thung lũng Bắc Sơn nhìn từ trên cao trong sương sớm"
+                             loading="lazy" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105">
+                    </a>
+                    <figcaption class="p-5">
+                        <h3 class="font-bold text-forest text-lg">Thung lũng Bắc Sơn</h3>
+                        <p class="text-sm text-gray-600 mt-1">Ruộng đồng, núi đá vôi và biển mây nhìn từ trên cao.</p>
+                        <a class="inline-block mt-3 text-sm font-semibold text-forest-medium hover:underline" href="https://cungphuot.info/thung-lung-bac-son-an-hien-trong-may-vao-mua-lua-chin-post26540.cp" target="_blank" rel="noopener noreferrer">Nguồn: Cùng Phượt ↗</a>
+                    </figcaption>
+                </figure>
+
+                <figure class="group overflow-hidden rounded-3xl bg-stone-50 border border-stone-200 shadow-md">
+                    <a href="https://vietnam.vnanet.vn/english/long-form/the-quottreasuresquot-on-the-bac-son-arc-362709.html" target="_blank" rel="noopener noreferrer" class="block">
+                        <img src="https://imagevietnam.vnanet.vn/MediaUpload/Org/2024/03/14/914-16-28-4.jpg"
+                             alt="Nghệ nhân trình diễn đàn tính giữa cánh đồng Bắc Sơn"
+                             loading="lazy" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105">
+                    </a>
+                    <figcaption class="p-5">
+                        <h3 class="font-bold text-forest text-lg">Đàn Tính và văn hóa Tày</h3>
+                        <p class="text-sm text-gray-600 mt-1">Nét văn hóa âm nhạc truyền thống giữa không gian bản làng.</p>
+                        <a class="inline-block mt-3 text-sm font-semibold text-forest-medium hover:underline" href="https://vietnam.vnanet.vn/english/long-form/the-quottreasuresquot-on-the-bac-son-arc-362709.html" target="_blank" rel="noopener noreferrer">Nguồn: Vietnam Pictorial ↗</a>
+                    </figcaption>
+                </figure>
+
+                <figure class="group overflow-hidden rounded-3xl bg-stone-50 border border-stone-200 shadow-md">
+                    <a href="https://dantocphattrien.vietnamnet.vn/bac-son-xu-so-vang-ngan-trai-nghiem-1658021385866.htm" target="_blank" rel="noopener noreferrer" class="block">
+                        <img src="https://images.baodantoc.vn/uploads/2022/Th%C3%A1ng%207/Ngay_17/TRUNG/B%E1%BA%AFc%20S%C6%A1n/4.jpg"
+                             alt="Giao lưu đàn tính bên bếp lửa tại nhà sàn"
+                             loading="lazy" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105">
+                    </a>
+                    <figcaption class="p-5">
+                        <h3 class="font-bold text-forest text-lg">Giao lưu văn nghệ bên bếp lửa</h3>
+                        <p class="text-sm text-gray-600 mt-1">Trải nghiệm hát Then, đàn Tính trong không gian nhà sàn.</p>
+                        <a class="inline-block mt-3 text-sm font-semibold text-forest-medium hover:underline" href="https://dantocphattrien.vietnamnet.vn/bac-son-xu-so-vang-ngan-trai-nghiem-1658021385866.htm" target="_blank" rel="noopener noreferrer">Nguồn: Dân tộc và Phát triển ↗</a>
+                    </figcaption>
+                </figure>
+
+                <figure class="group overflow-hidden rounded-3xl bg-stone-50 border border-stone-200 shadow-md">
+                    <a href="https://vietunique.vn/tour-bac-son-trekking-na-lay-mua-lua-chin.html" target="_blank" rel="noopener noreferrer" class="block">
+                        <img src="https://vietunique.vn/Uploads/tour-bac-son.jpg"
+                             alt="Cánh đồng lúa vàng và núi đá vôi ở Bắc Sơn"
+                             loading="lazy" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105">
+                    </a>
+                    <figcaption class="p-5">
+                        <h3 class="font-bold text-forest text-lg">Mùa vàng Bắc Sơn</h3>
+                        <p class="text-sm text-gray-600 mt-1">Cảnh sắc đồng lúa theo mùa, điểm nhấn của du lịch sinh thái.</p>
+                        <a class="inline-block mt-3 text-sm font-semibold text-forest-medium hover:underline" href="https://vietunique.vn/tour-bac-son-trekking-na-lay-mua-lua-chin.html" target="_blank" rel="noopener noreferrer">Nguồn: VietUnique ↗</a>
+                    </figcaption>
+                </figure>
+            </div>
+
+            <p class="text-xs text-gray-500 mt-7 text-center">
+                Ảnh được tải từ các trang báo và trang du lịch công khai để minh họa. Khi sử dụng cho mục đích xuất bản,
+                cần kiểm tra điều kiện bản quyền và xin phép chủ sở hữu nếu cần.
+            </p>
+        </div>
+    </section>
+
+    <!-- 3. Cấu trúc Hợp tác xã Du lịch "3 Tại Chỗ" (Tương tác Tab + Xem tất cả) -->
+    <section id="mo-hinh" class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-cream/80 tay-pattern border-y border-wood/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-12 bg-cream/95 backdrop-blur-sm p-6 rounded-3xl shadow-sm border border-wood/20">
+                <span class="text-forest-medium font-bold uppercase tracking-widest text-xs sm:text-sm">02 • Giải pháp cốt lõi</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-forest mt-2 mb-3">
+                    Cấu trúc Hợp tác xã Du lịch "3 Tại Chỗ"
+                </h2>
+                <p class="text-gray-600 text-base sm:text-lg">
+                    Mô hình vận hành dựa trên 3 trụ cột gắn kết chặt chẽ, biến mỗi người dân Quỳnh Sơn thành một mắt xích quan trọng trong chuỗi giá trị du lịch.
+                </p>
+            </div>
+
+            <!-- Thanh điều khiển Tab tương tác -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10">
+                <button onclick="selectPillar('all')" id="btn-all" class="pillar-btn tab-active px-5 py-3 rounded-2xl border-2 border-forest font-bold text-sm sm:text-base transition-all cursor-pointer">
+                    Toàn cảnh 3 Trụ cột
+                </button>
+                <button onclick="selectPillar('p1')" id="btn-p1" class="pillar-btn bg-white text-forest hover:bg-forest-soft px-5 py-3 rounded-2xl border-2 border-forest/20 font-bold text-sm sm:text-base transition-all cursor-pointer">
+                    01. Ăn tại chỗ
+                </button>
+                <button onclick="selectPillar('p2')" id="btn-p2" class="pillar-btn bg-white text-forest hover:bg-forest-soft px-5 py-3 rounded-2xl border-2 border-forest/20 font-bold text-sm sm:text-base transition-all cursor-pointer">
+                    02. Ở tại chỗ
+                </button>
+                <button onclick="selectPillar('p3')" id="btn-p3" class="pillar-btn bg-white text-forest hover:bg-forest-soft px-5 py-3 rounded-2xl border-2 border-forest/20 font-bold text-sm sm:text-base transition-all cursor-pointer">
+                    03. Trải nghiệm vui chơi tại chỗ
+                </button>
+            </div>
+
+            <!-- Grid 3 Trụ cột -->
+            <div id="pillars-container" class="grid grid-cols-1 lg:grid-cols-3 gap-7">
+                <!-- Trụ cột 01: Ăn tại chỗ -->
+                <div id="card-p1" class="pillar-item bg-white rounded-3xl p-7 sm:p-8 shadow-xl border border-stone-200 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="w-14 h-14 rounded-2xl bg-forest text-rice font-extrabold text-2xl flex items-center justify-center shadow-md">01</span>
+                            <span class="px-3 py-1 rounded-full bg-forest-soft text-forest font-bold text-xs uppercase tracking-wider">Ẩm thực bản địa</span>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-forest mb-3">Ăn tại chỗ</h3>
+                        <p class="text-gray-600 text-sm sm:text-base leading-relaxed mb-5">
+                            Chuỗi cung ứng ẩm thực bản địa khép kín: sử dụng 100% nguyên liệu nông sản sạch tại xã Bắc Sơn do chính các hộ nông dân địa phương cung cấp và chế biến.
+                        </p>
+                        <div class="space-y-3 bg-stone-50 p-4 rounded-2xl border border-stone-100">
+                            <div class="flex items-start gap-2.5 text-sm">
+                                <span class="text-forest font-bold">•</span>
+                                <span><strong>Mâm cỗ đặc sản người Tày:</strong> Phục vụ các món trứ danh như khâu nhục, vịt quay, lợn quay lá mắc mật, xôi cẩm ngũ sắc và cá suối nướng.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-sm">
+                                <span class="text-forest font-bold">•</span>
+                                <span><strong>Nguyên liệu từ vườn lên bàn ăn:</strong> Liên kết trực tiếp hộ trồng trọt, chăn nuôi trong thôn cung cấp thực phẩm tươi sạch, đảm bảo an toàn vệ sinh thực phẩm.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-sm">
+                                <span class="text-forest font-bold">•</span>
+                                <span><strong>Thức quà &amp; nông sản mùa vụ:</strong> Thưởng thức tại chỗ và mua mang về bánh ngải, quýt vàng Bắc Sơn, mật ong rừng và rượu ngô men lá.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-stone-100 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-lg bg-forest-soft text-forest-light text-xs font-semibold">Nông sản sạch Bắc Sơn</span>
+                        <span class="px-3 py-1 rounded-lg bg-forest-soft text-forest-light text-xs font-semibold">Chuỗi cung ứng khép kín</span>
+                    </div>
+                </div>
+
+                <!-- Trụ cột 02: Ở tại chỗ -->
+                <div id="card-p2" class="pillar-item bg-white rounded-3xl p-7 sm:p-8 shadow-xl border border-stone-200 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="w-14 h-14 rounded-2xl bg-rice text-forest font-extrabold text-2xl flex items-center justify-center shadow-md">02</span>
+                            <span class="px-3 py-1 rounded-full bg-rice-light text-rice-dark font-bold text-xs uppercase tracking-wider">Lưu trú cộng đồng</span>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-forest mb-3">Ở tại chỗ</h3>
+                        <p class="text-gray-600 text-sm sm:text-base leading-relaxed mb-5">
+                            Hệ thống lưu trú homestay nhà sàn truyền thống lợp ngói âm dương quay về hướng Nam của các hộ dân Quỳnh Sơn, giữ trọn nét sinh hoạt ấm cúng bản địa.
+                        </p>
+                        <div class="space-y-3 bg-stone-50 p-4 rounded-2xl border border-stone-100">
+                            <div class="flex items-start gap-2.5 text-sm">
+                                <span class="text-rice-dark font-bold">•</span>
+                                <span><strong>Không gian nhà sàn hướng Nam:</strong> Du khách nghỉ ngơi trong những ngôi nhà sàn gỗ thoáng mát mùa hè, ấm áp mùa đông giữa thung lũng đá vôi.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-sm">
+                                <span class="text-rice-dark font-bold">•</span>
+                                <span><strong>Điều phối khách công bằng:</strong> HTX phân bổ đoàn khách luân phiên, minh bạch giữa các hộ thành viên, tránh tình trạng nơi quá tải nơi vắng khách.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-sm">
+                                <span class="text-rice-dark font-bold">•</span>
+                                <span><strong>Chuẩn hóa chất lượng &amp; an toàn:</strong> Đồng bộ tiêu chuẩn chăn ga sạch sẽ, nhà vệ sinh đạt chuẩn và kỹ năng đón tiếp thân thiện, mến khách.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-stone-100 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-lg bg-rice-light text-rice-dark text-xs font-semibold">Nhà sàn ngói âm dương</span>
+                        <span class="px-3 py-1 rounded-lg bg-rice-light text-rice-dark text-xs font-semibold">Điều phối công bằng</span>
+                    </div>
+                </div>
+
+                <!-- Trụ cột 03: Trải nghiệm vui chơi tại chỗ -->
+                <div id="card-p3" class="pillar-item bg-white rounded-3xl p-7 sm:p-8 shadow-xl border border-stone-200 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="w-14 h-14 rounded-2xl bg-wood-dark text-white font-extrabold text-2xl flex items-center justify-center shadow-md">03</span>
+                            <span class="px-3 py-1 rounded-full bg-wood-light text-wood-dark font-bold text-xs uppercase tracking-wider">Văn hóa &amp; Sinh thái</span>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-forest mb-3">Trải nghiệm vui chơi tại chỗ</h3>
+                        <p class="text-gray-600 text-sm sm:text-base leading-relaxed mb-5">
+                            Các hoạt động trải nghiệm văn hóa, nghề truyền thống và sinh thái phong phú ngay tại làng, kết nối du khách với đời sống thường nhật của người Tày.
+                        </p>
+                        <div class="space-y-3 bg-stone-50 p-4 rounded-2xl border border-stone-100">
+                            <div class="flex items-start gap-2.5 text-sm">
+                                <span class="text-wood-dark font-bold">•</span>
+                                <span><strong>Trải nghiệm nghề truyền thống:</strong> Tự tay giã lá ngải gói bánh ngải, trải nghiệm làm ngói âm dương thủ công cùng nghệ nhân trong làng.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-sm">
+                                <span class="text-wood-dark font-bold">•</span>
+                                <span><strong>Giao lưu văn nghệ bên bếp lửa:</strong> Thưởng thức và học hát Then, đàn Tính, múa chầu cùng đội văn nghệ dân gian của cộng đồng.</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-sm">
+                                <span class="text-wood-dark font-bold">•</span>
+                                <span><strong>Khám phá thiên nhiên Bắc Sơn:</strong> Đạp xe qua cánh đồng lúa thung lũng, chèo bè thư giãn và chinh phục đỉnh Nà Lay ngắm toàn cảnh bản làng.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-stone-100 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-lg bg-wood-light text-wood-dark text-xs font-semibold">Làm bánh ngải &amp; ngói âm dương</span>
+                        <span class="px-3 py-1 rounded-lg bg-wood-light text-wood-dark text-xs font-semibold">Hát Then • Đỉnh Nà Lay</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Gói trải nghiệm / Lộ trình tham quan mẫu tại Quỳnh Sơn -->
+    <section id="trai-nghiem" class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <span class="text-forest-medium font-bold uppercase tracking-widest text-xs sm:text-sm">03 • Vận hành thực tế</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-forest mt-2 mb-4">
+                Mô phỏng Lộ trình Trải nghiệm "3 Tại Chỗ"
+            </h2>
+            <p class="text-gray-600 text-base sm:text-lg">
+                Chọn gói lịch trình bên dưới để xem cách Hợp tác xã điều phối các hộ gia đình cùng phục vụ một đoàn khách du lịch tại Quỳnh Sơn.
+            </p>
+
+            <!-- Nút chuyển đổi gói 1 ngày / 2N1Đ -->
+            <div class="inline-flex p-1.5 rounded-2xl bg-stone-200/80 mt-6">
+                <button onclick="switchTour('1day')" id="tour-btn-1day" class="px-6 py-2.5 rounded-xl bg-forest text-white font-bold text-sm sm:text-base shadow transition-all cursor-pointer">
+                    Gói 1 Ngày: Chạm nét văn hóa Tày
+                </button>
+                <button onclick="switchTour('2day')" id="tour-btn-2day" class="px-6 py-2.5 rounded-xl text-gray-700 hover:text-forest font-bold text-sm sm:text-base transition-all cursor-pointer">
+                    Gói 2 Ngày 1 Đêm: Sống trọn bản Quỳnh Sơn
+                </button>
+            </div>
+        </div>
+
+        <!-- Nội dung Lộ trình 1 Ngày -->
+        <div id="tour-content-1day" class="fade-in bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-stone-200">
+            <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-8 border-b border-stone-100 gap-4">
+                <div>
+                    <span class="inline-block px-3 py-1 rounded-lg bg-forest-soft text-forest font-bold text-xs uppercase mb-2">Lịch trình tiêu chuẩn 1 ngày</span>
+                    <h3 class="text-xl sm:text-2xl font-extrabold text-forest">Hành trình "Một ngày làm người dân Quỳnh Sơn"</h3>
+                </div>
+                <div class="bg-cream px-4 py-3 rounded-2xl border border-wood/30 text-sm">
+                    <span class="font-bold text-forest">Huy động tại chỗ:</span> 01 HDV bản địa • 02 Hộ ẩm thực • 01 Hộ làng nghề
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-5 rounded-2xl bg-stone-50 border border-stone-100">
+                    <div class="text-rice-dark font-extrabold text-sm uppercase mb-1">08:00 – 11:30 • Buổi sáng</div>
+                    <h4 class="font-bold text-forest text-lg mb-2">Đón khách &amp; Tham quan làng nghề</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-3">
+                        Đón đoàn tại nhà sàn truyền thống hướng Nam (Ở tại chỗ), tham quan kiến trúc làng Quỳnh Sơn và trải nghiệm nặn ngói âm dương thủ công cùng người dân địa phương.
+                    </p>
+                    <span class="inline-block text-xs font-semibold text-rice-dark bg-rice-light px-2.5 py-1 rounded-md">Trụ cột 02: Ở tại chỗ</span>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-stone-50 border border-stone-100">
+                    <div class="text-rice-dark font-extrabold text-sm uppercase mb-1">11:30 – 14:00 • Buổi trưa</div>
+                    <h4 class="font-bold text-forest text-lg mb-2">Mâm cơm đặc sản "Từ vườn lên bàn ăn"</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-3">
+                        Thưởng thức mâm cỗ lá người Tày: khâu nhục, vịt quay, lợn quay, xôi cẩm, cá suối. 100% nguyên liệu nông sản sạch do các hộ dân xã Bắc Sơn cung cấp và chế biến.
+                    </p>
+                    <span class="inline-block text-xs font-semibold text-forest bg-forest-soft px-2.5 py-1 rounded-md">Trụ cột 01: Ăn tại chỗ</span>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-stone-50 border border-stone-100">
+                    <div class="text-rice-dark font-extrabold text-sm uppercase mb-1">14:00 – 17:00 • Buổi chiều</div>
+                    <h4 class="font-bold text-forest text-lg mb-2">Gói bánh ngải &amp; Chinh phục đỉnh Nà Lay</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-3">
+                        Gói bánh ngải cùng các bà, các mẹ trong bản; đạp xe qua cánh đồng lúa thung lũng Bắc Sơn, chèo bè và leo đỉnh Nà Lay ngắm toàn cảnh làng Quỳnh Sơn.
+                    </p>
+                    <span class="inline-block text-xs font-semibold text-wood-dark bg-wood-light px-2.5 py-1 rounded-md">Trụ cột 03: Trải nghiệm vui chơi</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nội dung Lộ trình 2N1Đ (Ẩn mặc định) -->
+        <div id="tour-content-2day" class="hidden fade-in bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-stone-200">
+            <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-8 border-b border-stone-100 gap-4">
+                <div>
+                    <span class="inline-block px-3 py-1 rounded-lg bg-rice-light text-rice-dark font-bold text-xs uppercase mb-2">Lịch trình chuyên sâu 2N1Đ</span>
+                    <h3 class="text-xl sm:text-2xl font-extrabold text-forest">Trải nghiệm "Đêm lửa trại &amp; Săn mây thung lũng Bắc Sơn"</h3>
+                </div>
+                <div class="bg-cream px-4 py-3 rounded-2xl border border-wood/30 text-sm">
+                    <span class="font-bold text-forest">Huy động tại chỗ:</span> 02 Homestay luân phiên • Đội văn nghệ Then • Hộ vườn quýt
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="p-6 rounded-2xl bg-stone-50 border border-stone-100 space-y-3">
+                    <div class="inline-block px-3 py-1 rounded-lg bg-forest text-white font-bold text-xs">NGÀY 01: Ở NHÀ SÀN • ĂN ĐẶC SẢN • HÁT THEN</div>
+                    <h4 class="font-bold text-forest text-lg">Nhận homestay • Gói bánh ngải • Đêm lửa trại hát Then</h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li><strong>Sáng &amp; Trưa (Ở &amp; Ăn tại chỗ):</strong> Nhận phòng homestay nhà sàn ngói âm dương hướng Nam do HTX điều phối; thưởng thức mâm cơm khâu nhục, vịt quay, cá suối.</li>
+                        <li><strong>Chiều (Vui chơi tại chỗ):</strong> Đạp xe quanh cánh đồng lúa thung lũng Bắc Sơn, chèo bè thư giãn và trải nghiệm gói bánh ngải, làm ngói âm dương.</li>
+                        <li><strong>Tối (Văn hóa bản địa):</strong> Giao lưu hát Then, đàn Tính bên bếp lửa nhà sàn cùng đội văn nghệ người Tày.</li>
+                    </ul>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-stone-50 border border-stone-100 space-y-3">
+                    <div class="inline-block px-3 py-1 rounded-lg bg-rice text-forest font-bold text-xs">NGÀY 02: SĂN MÂY NÀ LAY • THỨC QUÀ BẮC SƠN</div>
+                    <h4 class="font-bold text-forest text-lg">Chinh phục đỉnh Nà Lay • Gian hàng nông sản tại chỗ</h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li><strong>Sáng sớm (Vui chơi tại chỗ):</strong> Chinh phục đỉnh Nà Lay đón bình minh và ngắm toàn cảnh biển mây bao phủ thung lũng Quỳnh Sơn.</li>
+                        <li><strong>Trưa (Ăn tại chỗ):</strong> Thưởng thức ẩm thực địa phương với xôi cẩm, lợn quay và quýt Bắc Sơn tráng miệng tại nhà sàn.</li>
+                        <li><strong>Chiều:</strong> Tham quan và mua sắm đặc sản sạch tại gian hàng của HTX (bánh ngải, quýt Bắc Sơn, mật ong, đồ thủ công) trước khi kết thúc hành trình.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Giá trị thực tiễn mang lại cho Cộng đồng -->
+    <section id="gia-tri" class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-forest text-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="text-rice font-bold uppercase tracking-widest text-xs sm:text-sm">04 • Tác động &amp; Ý nghĩa</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold mt-2 mb-4">
+                    Giá trị Thực tiễn Dự án Mang lại
+                </h2>
+                <p class="text-white/80 text-base sm:text-lg">
+                    Mô hình không chỉ giải bài toán sinh kế cho người dân Quỳnh Sơn mà còn lan tỏa tinh thần khởi nghiệp gắn với bảo tồn văn hóa trong học sinh dân tộc nội trú.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-3xl p-7 hover:bg-white/15 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-rice text-forest flex items-center justify-center text-2xl mb-5 shadow-md">🏡</div>
+                    <h3 class="text-xl font-bold text-rice mb-2">Phát triển Kinh tế</h3>
+                    <p class="text-white/85 text-sm leading-relaxed">
+                        Tăng thu nhập bền vững cho cả hộ làm lưu trú lẫn hộ trồng trọt, chăn nuôi và làm nghề thủ công thông qua cơ chế tiêu thụ khép kín.
+                    </p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-3xl p-7 hover:bg-white/15 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-rice text-forest flex items-center justify-center text-2xl mb-5 shadow-md">🎶</div>
+                    <h3 class="text-xl font-bold text-rice mb-2">Bảo tồn Văn hóa</h3>
+                    <p class="text-white/85 text-sm leading-relaxed">
+                        Biến nhà sàn ngói âm dương, hát Then, đàn Tính và ẩm thực truyền thống thành niềm tự hào và nguồn sinh kế lâu dài cho thế hệ trẻ.
+                    </p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-3xl p-7 hover:bg-white/15 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-rice text-forest flex items-center justify-center text-2xl mb-5 shadow-md">🤝</div>
+                    <h3 class="text-xl font-bold text-rice mb-2">Gắn kết Cộng đồng</h3>
+                    <p class="text-white/85 text-sm leading-relaxed">
+                        Xóa bỏ sự cạnh tranh đơn lẻ, xây dựng văn hóa hợp tác minh bạch, chia sẻ khách và hỗ trợ nhau nâng cao chất lượng dịch vụ.
+                    </p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-3xl p-7 hover:bg-white/15 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-rice text-forest flex items-center justify-center text-2xl mb-5 shadow-md">📱</div>
+                    <h3 class="text-xl font-bold text-rice mb-2">Chuyển đổi số</h3>
+                    <p class="text-white/85 text-sm leading-relaxed">
+                        Ứng dụng nền tảng số để quản lý đặt phòng tập trung, chuẩn hóa bảng giá và quảng bá thương hiệu Làng Quỳnh Sơn chuyên nghiệp.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Đội ngũ thực hiện dự án -->
+    <section id="nhom-du-an" class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-forest-soft text-forest font-bold text-xs sm:text-sm uppercase tracking-wider mb-3">
+                Trường PTDTNT THCS &amp; THPT Bắc Sơn
+            </span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-forest mb-4">
+                Đội ngũ Thực hiện Dự án
+            </h2>
+            <p class="text-gray-600 text-base sm:text-lg">
+                Sự đồng hành hướng dẫn tận tâm của giáo viên cùng nhiệt huyết tuổi trẻ, tình yêu quê hương Bắc Sơn của các thành viên nhóm nghiên cứu.
+            </p>
+        </div>
+
+        <!-- Thẻ Giáo viên hướng dẫn (Nổi bật ở trên) -->
+        <div class="max-w-lg mx-auto mb-10">
+            <div class="bg-gradient-to-br from-white to-amber-50/70 rounded-3xl p-8 text-center shadow-xl border-2 border-rice/60 relative overflow-hidden">
+                <!-- Khung Avatar Cô Huyền có nút chọn ảnh -->
+                <div class="relative w-[110px] h-[110px] mx-auto mb-4">
+                    <!-- THAY ẢNH CÔ HUYỀN: đặt file co-huyen.jpg trong thư mục images -->
+                    <img id="img-huyen" src="images/co-huyen.jpg" alt="Cô Lương Thị Huyền" class="w-full h-full rounded-full object-cover object-center shadow-lg border-4 border-[#e09f3e]">
+                </div>
+
+                <span class="inline-block px-4 py-1 rounded-full bg-rice-light text-rice-dark font-bold text-xs uppercase tracking-wider mb-2">
+                    Giáo viên hướng dẫn
+                </span>
+                <h3 class="text-2xl font-extrabold text-forest mb-2">Cô Lương Thị Huyền</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                    Định hướng chuyên môn, cố vấn phương pháp nghiên cứu thực địa và hoàn thiện khung mô hình Hợp tác xã du lịch 3 tại chỗ.
+                </p>
+            </div>
+        </div>
+
+        <!-- Grid 3 Thành viên học sinh -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+            <!-- Nhóm trưởng: Hoàng Thị Thùy -->
+            <div class="bg-white rounded-3xl p-7 text-center shadow-lg border border-stone-200 border-b-4 border-b-forest hover:-translate-y-1 transition-all">
+                <div class="relative w-[110px] h-[110px] mx-auto mb-4">
+                    <!-- THAY ẢNH HOÀNG THỊ THÙY: đặt file hoang-thi-thuy.jpg trong thư mục images -->
+                    <img id="img-thuy" src="images/hoang-thi-thuy.jpg" alt="Hoàng Thị Thùy" style="object-position: 45% 42%;" class="w-[110px] h-[110px] rounded-full object-cover border-[3px] border-[#2d6a4f] shadow-lg mx-auto">
+                </div>
+                <span class="inline-block px-3.5 py-1 rounded-full bg-forest-soft text-forest font-bold text-xs uppercase tracking-wider mb-2">
+                    Nhóm trưởng
+                </span>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Hoàng Thị Thùy</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                    Điều phối chung tiến độ dự án, tổ chức khảo sát thực tế tại làng Quỳnh Sơn và tổng hợp báo cáo thuyết trình.
+                </p>
+            </div>
+
+            <!-- Phụ trách xây dựng dự án: Nguyễn Thu Hà -->
+            <div class="bg-white rounded-3xl p-7 text-center shadow-lg border border-stone-200 border-b-4 border-b-forest-medium hover:-translate-y-1 transition-all">
+                <div class="relative w-[110px] h-[110px] mx-auto mb-4">
+                    <!-- THAY ẢNH NGUYỄN THU HÀ: đặt file nguyen-thu-ha.jpg trong thư mục images -->
+                    <img id="img-ha" src="images/nguyen-thu-ha.jpg" alt="Nguyễn Thu Hà" style="object-position: 50% 56%;" class="w-[110px] h-[110px] rounded-full object-cover border-[3px] border-[#2d6a4f] shadow-lg mx-auto">
+                </div>
+                <span class="inline-block px-3.5 py-1 rounded-full bg-forest-soft text-forest font-bold text-xs uppercase tracking-wider mb-2">
+                    Phụ trách xây dựng dự án
+                </span>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Nguyễn Thu Hà</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                    Thiết kế cơ cấu vận hành HTX 3 tại chỗ, xây dựng quy chế điều phối khách và chuỗi sản phẩm trải nghiệm bản địa.
+                </p>
+            </div>
+
+            <!-- Phụ trách Marketing: Đặng Bảo Nam -->
+            <div class="bg-white rounded-3xl p-7 text-center shadow-lg border border-stone-200 border-b-4 border-b-wood-dark hover:-translate-y-1 transition-all">
+                <div class="relative w-[110px] h-[110px] mx-auto mb-4">
+                    <!-- THAY ẢNH ĐẶNG BẢO NAM: đặt file dang-bao-nam.jpg trong thư mục images -->
+                    <img id="img-nam" src="images/dang-bao-nam.jpg" alt="Đặng Bảo Nam" style="object-position: 50% 34%;" class="w-[110px] h-[110px] rounded-full object-cover border-[3px] border-[#b07d4f] shadow-lg mx-auto">
+                </div>
+                <span class="inline-block px-3.5 py-1 rounded-full bg-wood-light text-wood-dark font-bold text-xs uppercase tracking-wider mb-2">
+                    Marketing
+                </span>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Đặng Bảo Nam</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                    Xây dựng nhận diện thương hiệu, chiến lược truyền thông đa nền tảng và thiết kế giao diện quảng bá số cho dự án.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Footer -->
+    <footer class="bg-forest text-white/90 pt-14 pb-10 px-4 sm:px-6 lg:px-8 border-t-4 border-rice">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pb-10 border-b border-white/15">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-rice text-forest font-extrabold flex items-center justify-center">QS</div>
+                        <span class="font-bold text-lg text-white">Hợp tác xã Du lịch 3 Tại Chỗ Quỳnh Sơn</span>
+                    </div>
+                    <p class="text-white/80 text-sm leading-relaxed max-w-md">
+                        Dự án Xây dựng Mô hình Hợp tác xã Du lịch 3 Tại Chỗ tại Làng Du lịch Cộng đồng Quỳnh Sơn, xã Bắc Sơn, tỉnh Lạng Sơn.
+                    </p>
+                </div>
+
+                <div class="md:text-right space-y-2 text-sm">
+                    <p class="font-bold text-rice text-base">Trường PTDTNT THCS &amp; THPT Bắc Sơn</p>
+                    <p class="text-white/80">Địa điểm nghiên cứu: Làng Du lịch Cộng đồng Quỳnh Sơn, xã Bắc Sơn, tỉnh Lạng Sơn</p>
+                    <p class="text-white/75">GVHD: Cô Lương Thị Huyền • Nhóm: Hoàng Thị Thùy, Nguyễn Thu Hà, Đặng Bảo Nam</p>
+                </div>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/60">
+                <p>© 2026 Dự án Nghiên cứu &amp; Khởi nghiệp Học sinh - Trường PTDTNT THCS &amp; THPT Bắc Sơn.</p>
+                <a href="#" class="text-rice hover:underline font-medium">Lên đầu trang ↑</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript điều khiển tương tác -->
+    <script>
+        // 1. Điều khiển Menu Mobile
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMobileMenu() {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                iconOpen.classList.add('hidden');
+                iconClose.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+                iconOpen.classList.remove('hidden');
+                iconClose.classList.add('hidden');
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    toggleMobileMenu();
+                }
+            });
+        });
+
+        // 2. Bộ lọc tương tác 3 Trụ cột HTX
+        function selectPillar(pillarId) {
+            const buttons = document.querySelectorAll('.pillar-btn');
+            const items = document.querySelectorAll('.pillar-item');
+            const container = document.getElementById('pillars-container');
+
+            // Cập nhật trạng thái nút bấm
+            buttons.forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('bg-white', 'text-forest', 'border-forest/20');
+            });
+            const activeBtn = document.getElementById('btn-' + pillarId);
+            activeBtn.classList.add('tab-active');
+            activeBtn.classList.remove('bg-white', 'text-forest', 'border-forest/20');
+
+            // Hiển thị card tương ứng
+            if (pillarId === 'all') {
+                container.classList.remove('max-w-2xl', 'mx-auto', 'lg:grid-cols-1');
+                container.classList.add('lg:grid-cols-3');
+                items.forEach(item => {
+                    item.classList.remove('hidden');
+                    item.classList.add('fade-in');
+                });
+            } else {
+                container.classList.remove('lg:grid-cols-3');
+                container.classList.add('max-w-2xl', 'mx-auto', 'lg:grid-cols-1');
+                items.forEach(item => {
+                    if (item.id === 'card-' + pillarId) {
+                        item.classList.remove('hidden');
+                        item.classList.add('fade-in');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            }
+        }
+
+        // 3. Chuyển đổi Lộ trình tham quan 1 Ngày / 2 Ngày 1 Đêm
+        function switchTour(tourType) {
+            const btn1 = document.getElementById('tour-btn-1day');
+            const btn2 = document.getElementById('tour-btn-2day');
+            const content1 = document.getElementById('tour-content-1day');
+            const content2 = document.getElementById('tour-content-2day');
+
+            if (tourType === '1day') {
+                btn1.classList.add('bg-forest', 'text-white', 'shadow');
+                btn1.classList.remove('text-gray-700');
+                btn2.classList.remove('bg-forest', 'text-white', 'shadow');
+                btn2.classList.add('text-gray-700');
+                content1.classList.remove('hidden');
+                content2.classList.add('hidden');
+            } else {
+                btn2.classList.add('bg-forest', 'text-white', 'shadow');
+                btn2.classList.remove('text-gray-700');
+                btn1.classList.remove('bg-forest', 'text-white', 'shadow');
+                btn1.classList.add('text-gray-700');
+                content2.classList.remove('hidden');
+                content1.classList.add('hidden');
+            }
+        }
+
+        // Avatar được tải cố định từ thư mục images.
+    </script>
+</body>
+</html>
